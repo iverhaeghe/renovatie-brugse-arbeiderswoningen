@@ -1,0 +1,4 @@
+venv/
+*.ipynb*
+*pycache*/
+src/pages/__pycache__/

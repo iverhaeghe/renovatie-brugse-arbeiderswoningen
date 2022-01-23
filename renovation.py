@@ -17,10 +17,10 @@ ast.core.services.other.set_logging_format()
 
 PAGES = {
     "Home": src.pages.home,
-    "Stappenplan": src.pages.stappenplan,
+    "19e-Eeuwse arbeiderswoningen": src.pages.geschiedenis,
+    "STAPPENPLAN": src.pages.stappenplan,
     "Premies": src.pages.premies,
     "Groepsaankopen": src.pages.groepsaankopen,
-    "Geschiedenis": src.pages.geschiedenis,
 }
 
 def render_page():
@@ -59,8 +59,9 @@ def set_png_as_page_bg(png_file):
 def main():
     """Main function of the App"""
     set_png_as_page_bg('images/geschiedenis/fortje.png')
-
-    st.sidebar.image("images/logo_brugge.png", width=150)
+    st.sidebar.markdown("<p style='font-size: 16px'>Bachelorproef in samenwerking met</p>", unsafe_allow_html=True)
+    st.sidebar.image("images/Logo's Howest en Brugge - ZONDER ACHTERGROND.png", width=150)
+    st.sidebar.markdown("<p style='font-size: 14px;'><strong><em>(Dit is geen officiële website)</em></strong></p>", unsafe_allow_html=True)
     st.sidebar.title("Navigatie")
     st.session_state.selection = st.sidebar.radio("Ga Naar", list(PAGES.keys()), on_change = render_page())
     st.session_state.page = PAGES[st.session_state.selection]

@@ -59,7 +59,7 @@ def write():
         </p>
         <h1> 2. Uitwerkingsfase</h1>
         <p style='text-align: justify'>
-        De uitwerkingsfase bestaat uit het schetsen van mogelijke oplossingen en het toetsen van deze oplossingen aan de wensen en doelen uit de beginfase. Het is hierbij belangrijk dat je wensen uit de beginfase kunnen vertaald worden naar een uitvoeringsplan op basis van de uitvoeringskeuzes die je maakt. In deze fase kun je best ook beroep doen op professioneel renovatieadvies. Dit advies biedt stad Brugge u gratis aan. Klik <a href='https://energieplatform.brugge.be/renovatiescan' target='_blank'>hier</a> voor meer informatie.
+        De uitwerkingsfase bestaat uit het schetsen van mogelijke oplossingen en het toetsen van deze oplossingen aan de wensen en doelen uit de beginfase. Het is hierbij belangrijk dat je wensen uit de beginfase kunnen vertaald worden naar een uitvoeringsplan op basis van de uitvoeringskeuzes die je maakt. In deze fase kun je best ook beroep doen op professioneel advies die stad Brugge gratis aanbiedt. Je kan <a href="https://energieplatform.brugge.be/renovatiescan" target="_blank">een gratis renovatiescan</a> aanvragen of beroep doen op de <a href="https://www.brugge.be/monumentenzorg-en-algemeen-erfgoedbeheer" target="_blank"> Dienst Monumentenzorg & Erfgoedzaken</a> voor advies bij restauraties.
         </p>
         """, unsafe_allow_html=True)
 
@@ -78,27 +78,23 @@ def write():
             tuple(data["Prioriteit-Groep-Element"].loc[data["Prioriteit-Groep-Element"]["Groep"] == st.session_state.groep, "Element"])
         ) 
         
-        adp = st.expander(label="Wat zijn de aandachtspunten?")
-        with adp:
-            data_adp = pd.merge(data["Prioriteit-Groep-Element"], data["Element-Aandachtspunt"], on="Element", how="inner")
-            data_adp = data_adp[data_adp["Element"] == st.session_state.element].fillna("GEEN")
-            for a in data_adp["Aandachtspunt"]:
-                st.write(f""" * {a}""")
-
-        # st.markdown("""
-        # # 4. Uitwerkingsfase
-        # """)
-
+        data_adp = pd.merge(data["Prioriteit-Groep-Element"], data["Element-Aandachtspunt"], on="Element", how="inner")        
+        data_adp = data_adp[data_adp["Element"] == st.session_state.element].fillna("GEEN")
         data_ingreep = pd.merge(data_adp, data["Element-Ingreep"], on="Element", how="inner")
         data_afbeelding = data["Ingreep-Afbeelding"].fillna("")
 
-        cols1, cols2 =st.columns(2)
+        adp = st.expander(label="Wat zijn de aandachtspunten?")
+        with adp:
+            # data_adp = data_adp[data_adp["Element"] == st.session_state.element].fillna("GEEN")
+            for a in data_adp["Aandachtspunt"]:
+                st.write(f""" * {a}""")
 
-        with cols1:
-            st.session_state.ingreep = st.selectbox(
+        st.session_state.ingreep = st.selectbox(
                 "3. Welke techniek kies je?",
                 tuple(data_ingreep["Ingreep"].drop_duplicates())
             ) 
+        cols1, cols2 =st.columns(2)
+        with cols1:
             st.write("Je hebt gekozen voor de techniek:", st.session_state.ingreep)
         
         with cols2:
@@ -109,6 +105,12 @@ def write():
             else:
                 st.empty()
                 # st.image("images/geschiedenis/fortje.png")
+
+        # adp = st.expander(label="Wat zijn de aandachtspunten?")
+        # with adp:
+        #     # data_adp = data_adp[data_adp["Element"] == st.session_state.element].fillna("GEEN")
+        #     for a in data_adp["Aandachtspunt"]:
+        #         st.write(f""" * {a}""")
 
         eisen = st.expander(label="Wettelijke eisen")
         vw_ingreep = st.expander(label="Voorwaarden")
