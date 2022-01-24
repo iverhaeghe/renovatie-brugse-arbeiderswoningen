@@ -17,7 +17,7 @@ ast.core.services.other.set_logging_format()
 
 PAGES = {
     "Home": src.pages.home,
-    "19e-Eeuwse arbeiderswoningen": src.pages.geschiedenis,
+    "19ᵉ-Eeuwse arbeiderswoningen": src.pages.geschiedenis,
     "STAPPENPLAN": src.pages.stappenplan,
     "Premies": src.pages.premies,
     "Groepsaankopen": src.pages.groepsaankopen,
